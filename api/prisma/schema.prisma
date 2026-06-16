@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Trip {
+  id            String   @id @default(cuid())
+  startLocation String   @map("start_location")
+  endLocation   String   @map("end_location")
+  startTime     DateTime @map("start_time")
+  endTime       DateTime @map("end_time")
+  distanceKm    Float    @map("distance_km")
+  notes         String?  @db.VarChar(500)
+  memorable     Boolean  @default(false)
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("trips")
+}
